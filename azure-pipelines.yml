@@ -9,9 +9,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-
-
 stages:
  - stage: tfvalidate
    jobs:
@@ -26,9 +23,9 @@ stages:
           inputs:
             provider: 'aws'
             command: 'init'
-            backendServiceAWS: 'AWS S3 connection'
-            backendAWSBucketName: 'awshostwebsite001'
-            backendAWSKey: 'terraform.tfstate'
+            backendServiceAWS: 'AWS-Terraform'
+            backendAWSBucketName: 'terraform-aws-bucket-01'
+            backendAWSKey: 'tf/terraform.tfstate'
           
         - task: TerraformTaskV4@4
           inputs:
@@ -51,17 +48,18 @@ stages:
           inputs:
             provider: 'aws'
             command: 'init'
-            backendServiceAWS: 'AWS S3 connection'
-            backendAWSBucketName: 'awshostwebsite002'
-            backendAWSKey: 'terraform.tfstate'
-            
+            backendServiceAWS: 'AWS-Terraform'
+            backendAWSBucketName: 'terraform-aws-bucket-01'
+            backendAWSKey: 'tf/terraform.tfstate'
+
         - task: TerraformTaskV4@4
           inputs:
-           provider: 'aws'
-           command: 'plan'
-           environmentServiceNameAWS: 'AWS S3 connection'   
+            provider: 'aws'
+            command: 'plan'
+            environmentServiceNameAWS: 'AWS-Terraform'
+   
         - task: TerraformTaskV4@4
           inputs:
-           provider: 'aws'
-           command: 'apply'
-           environmentServiceNameAWS: 'AWS S3 connection'
+            provider: 'aws'
+            command: 'apply'
+            environmentServiceNameAWS: 'AWS-Terraform'
