@@ -14,6 +14,11 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "mybucket" {
+  count = length(data.aws_s3_bucket.existing) == 0 ? 1 : 0
+  bucket = var.bucketname
+}
+
+data "aws_s3_bucket" "existing" {
   bucket = var.bucketname
 }
 
