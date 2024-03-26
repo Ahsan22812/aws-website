@@ -1,4 +1,4 @@
 variable "bucketname" {
   description = "S3 bucket name"
-  default     = "awshostwebsite002"
+  default     = "awshostwebsite003"
 }
