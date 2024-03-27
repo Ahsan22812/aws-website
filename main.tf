@@ -30,9 +30,6 @@ resource "aws_s3_bucket_ownership_controls" "example" {
 
 resource "aws_s3_bucket_versioning" "versioning" {
   bucket = aws_s3_bucket.mybucket.id
-  versioning_configuration {
-    status = "Enabled"
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
@@ -60,6 +57,8 @@ resource "aws_s3_object" "index" {
   source = "index.html"
   acl = "public-read"
   content_type = "text/html"
+  etag   = "${filemd5("${path.module}/index.html")}"
+
 }
 
 resource "aws_s3_object" "error" {
